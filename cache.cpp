@@ -1,5 +1,7 @@
 #include<iostream>
 #include<fstream>
+#include<algorithm>
+#include<iterator>
 #include<cstdio>
 #include<cstdlib>
 #include<cmath>
@@ -10,6 +12,8 @@ int main()
     int cache_size, block_size, asso_type, policy_type;
     int tag_width, index_width, offset_width;
     int i=0;
+    unsigned int temp = 0;
+    unsigned int victag = 0;
     //maybe use vector
     //because trace2.txt will lost front bit
     //and trace3.txt will core dumped
@@ -64,7 +68,35 @@ int main()
         printf("%x\n",address[j]);
     }
 
-    //
+    //select victim according to policy type
+    if(policy_type == 0) //FIFO
+    {
+        for(int j=0; j<i; j++)
+        {
+            for(int k=0; k<j; k++)
+            {
+                if(address[j] == address[k])
+                {
+                    printf("3066\n");
+                }
+                //temp shift bit left then shift bit right
+                //then victag = origin / temp
+                //change victag value
+            }
+            if(victag == 0)
+            {
+                printf("-1\n");
+            }
+        }
+    }
+    else if(policy_type == 1) //LRU
+    {
+
+    }
+    else if(policy_type == 2) //my policy RANDOM
+    {
+
+    }
 
     infile.close();
     outfile.close();
