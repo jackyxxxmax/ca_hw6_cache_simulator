@@ -1,30 +1,28 @@
 #include<iostream>
 #include<fstream>
-#include<algorithm>
-#include<iterator>
 #include<cstdio>
 #include<cstdlib>
 #include<cmath>
 using namespace std;
 
-int main()
+int main(int argc, char*argv[])
 {
     int cache_size, block_size, asso_type, policy_type;
     int tag_width, index_width, offset_width;
     int i=0;
-    unsigned int temp = 0;
+    unsigned int temp = 0, temp2 = 0, temp3 = 0, temp4 = 0;
     unsigned int victag = 0;
     //maybe use vector
     //because trace2.txt will lost front bit
     //and trace3.txt will core dumped
     unsigned int address[1000000];
-    ifstream infile("trace1.txt", ios::in); //file open
+    ifstream infile(argv[1], ios::in); //file open
     if(!infile)
     {
         cerr<<"Fail opening"<<endl;
         exit(1);
     }
-    ofstream outfile("trace1.out", ios::out);
+    ofstream outfile(argv[2], ios::out);
 
     //get trace1.txt 4 line data
     infile>>cache_size;
@@ -65,7 +63,7 @@ int main()
     //debug
     for(int j=0; j<i; j++)
     {
-        printf("%x\n",address[j]);
+//        printf("%x\n",address[j]);
     }
 
     //select victim according to policy type
@@ -73,20 +71,29 @@ int main()
     {
         for(int j=0; j<i; j++)
         {
+			temp = address[j];
+			temp = temp/block_size; //discard offset bits
+			//temp2 = temp/
             for(int k=0; k<j; k++)
             {
                 if(address[j] == address[k])
                 {
-                    printf("3066\n");
+//                    printf("3066\n");
                 }
                 //temp shift bit left then shift bit right
                 //then victag = origin / temp
                 //change victag value
             }
+			//debug
+			//printf("%d", temp);
             if(victag == 0)
             {
-                printf("-1\n");
+//                printf("-1\n");
             }
+			else
+			{
+				printf("victag\n");
+			}
         }
     }
     else if(policy_type == 1) //LRU
